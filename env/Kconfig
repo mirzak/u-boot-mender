@@ -56,7 +56,6 @@ config ENV_IS_IN_FAT
 	bool "Environment is in a FAT filesystem"
 	depends on !CHAIN_OF_TRUST
 	default y if ARCH_BCM283X
-	default y if ARCH_SUNXI && MMC
 	default y if MMC_OMAP_HS && TI_COMMON_CMD_OPTIONS
 	select FS_FAT
 	select FAT_WRITE
@@ -154,6 +153,7 @@ config ENV_IS_IN_MMC
 	depends on !CHAIN_OF_TRUST
 	depends on MMC
 	default y if ARCH_EXYNOS4
+	default y if ARCH_SUNXI
 	default y if MX6SX || MX7D
 	default y if TEGRA30 || TEGRA124
 	default y if TEGRA_ARMV8_COMMON
@@ -432,17 +432,6 @@ config ENV_EXT4_FILE
 	  environment (explicit path to the file)
 
 if ARCH_ROCKCHIP || ARCH_SUNXI || ARCH_ZYNQ || ARCH_ZYNQMP || ARCH_VERSAL
-
-config ENV_OFFSET
-	hex "Environment Offset"
-	depends on !ENV_IS_IN_UBI
-	depends on !ENV_IS_NOWHERE
-	default 0x3f8000 if ARCH_ROCKCHIP
-	default 0x88000 if ARCH_SUNXI
-	default 0xE0000 if ARCH_ZYNQ
-	default 0x1E00000 if ARCH_ZYNQMP
-	help
-	  Offset from the start of the device (or partition)
 
 config ENV_SIZE
 	hex "Environment Size"
